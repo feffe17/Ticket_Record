@@ -20,6 +20,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role_id',
     ];
 
     /**
@@ -43,5 +44,23 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    // Verifica se l'utente ha il ruolo di "operator". 
+    public function isOperator()
+    {
+        return $this->role->name === 'operator';
+    }
+
+    // Verifica se l'utente ha il ruolo di "admin".
+    public function isAdmin()
+    {
+        return $this->role->name === 'admin';
+    }
+
+    // Verifica se l'utente ha il ruolo di "guest".
+    public function isGuest()
+    {
+        return $this->role->name === 'guest';
     }
 }
