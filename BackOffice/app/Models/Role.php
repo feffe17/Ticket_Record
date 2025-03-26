@@ -13,7 +13,6 @@ class Role extends Model
 
 
     // Relazione 1 to n con la tabella users.
-
     public function users()
     {
         return $this->hasMany(User::class);
