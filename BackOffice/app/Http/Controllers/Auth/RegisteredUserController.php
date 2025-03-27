@@ -30,15 +30,36 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'name' => ['required', 'string', 'min:2', 'max:255', 'regex:/^[a-zA-ZÀ-ÿ\s]+$/'],
+            'surname' => ['required', 'string', 'min:2', 'max:255', 'regex:/^[a-zA-ZÀ-ÿ\s]+$/'],
+            'phone' => ['nullable', 'string', 'max:15', 'regex:/^[0-9]+$/'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email'],
+            'password' => [
+                'required',
+                'confirmed',
+                Rules\Password::min(8)
+                    ->letters()
+                    ->mixedCase()
+                    ->numbers()
+                    ->symbols(),
+            ],
+        ], [
+            'name.regex' => 'Il nome può contenere solo lettere e spazi.',
+            'surname.regex' => 'Il cognome può contenere solo lettere e spazi.',
+            'phone.regex' => 'Il numero di telefono può contenere solo numeri.',
         ]);
+
+        $roleId = 1;
+        $isAvailable = $roleId != 1;
 
         $user = User::create([
             'name' => $request->name,
+            'surname' => $request->surname,
+            'phone' => $request->phone,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role_id' => $roleId,
+            'is_available' => $isAvailable,
         ]);
 
         event(new Registered($user));

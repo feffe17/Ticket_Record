@@ -18,9 +18,12 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'surname',
+        'phone',
         'email',
         'password',
         'role_id',
+        'is_available',
     ];
 
     /**
@@ -34,7 +37,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that should be cast.
+     * The attributes that should be cast.
      *
      * @return array<string, string>
      */
@@ -43,23 +46,32 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_available' => 'boolean',
         ];
     }
 
-    // Verifica se l'utente ha il ruolo di "operator". 
-    public function isOperator()
+    /**
+     * Get the role associated with the user.
+     */
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    // Check if the user has the "operator" role.
+    public function isOperator(): bool
     {
         return $this->role->name === 'operator';
     }
 
-    // Verifica se l'utente ha il ruolo di "admin".
-    public function isAdmin()
+    // Check if the user has the "admin" role.
+    public function isAdmin(): bool
     {
         return $this->role->name === 'admin';
     }
 
-    // Verifica se l'utente ha il ruolo di "guest".
-    public function isGuest()
+    // Check if the user has the "guest" role.
+    public function isGuest(): bool
     {
         return $this->role->name === 'guest';
     }
