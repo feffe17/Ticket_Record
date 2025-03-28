@@ -1,0 +1,33 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.ticket-navbar {
+    background-color: #007bff;
+}
+
+.ticket-navbar-brand {
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.btn-login-logout {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.btn-login-logout:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+.btn-logout {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-logout:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+}
