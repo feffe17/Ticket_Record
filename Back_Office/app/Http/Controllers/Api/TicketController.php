@@ -1,49 +1,61 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+// namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+// use App\Http\Controllers\Controller;
+// use App\Models\Ticket;
+// use App\Policies\TicketPolicy;
+// use Illuminate\Http\Request;
+// use Illuminate\Support\Facades\Auth;
+// use Illuminate\Auth\Access\AuthorizationException;
 
-class TicketController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
+// class TicketApiController extends Controller
+// {
+//     public function index()
+//     {
+//         $user = Auth::user();
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+//         if ($user->role_id >= 2) {
+//             return Ticket::all();
+//         }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+//         return Ticket::where('user_id', $user->id)->get();
+//     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+//     public function store(Request $request)
+//     {
+//         $request->validate([
+//             'title' => 'required|string|max:255',
+//             'description' => 'required|string',
+//         ]);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
-}
+//         $ticket = Ticket::create([
+//             'user_id' => Auth::id(),
+//             'title' => $request->title,
+//             'description' => $request->description,
+//             'status' => 'open',
+//         ]);
+
+//         return response()->json($ticket, 201);
+//     }
+
+//     public function show($id)
+//     {
+//         $ticket = Ticket::findOrFail($id);
+
+//         $this->authorize('view', $ticket);
+
+//         return response()->json($ticket);
+//     }
+
+//     public function destroy($id)
+//     {
+//         $ticket = Ticket::findOrFail($id);
+
+//         $this->authorize('delete', $ticket);
+
+//         $ticket->delete();
+
+//         return response()->json(['message' => 'Ticket eliminato'], 200);
+//     }
+// }
